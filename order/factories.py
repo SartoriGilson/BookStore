@@ -12,7 +12,7 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = User
 
 class OrderFactory(factory.django.DjangoModelFactory):
-    User = factory.SubFactory(UserFactory)
+    user = factory.SubFactory(UserFactory)
 
     @factory.post_generation
     def product(self, create, extracted, **kwargs):

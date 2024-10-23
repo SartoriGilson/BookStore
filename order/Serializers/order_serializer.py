@@ -20,9 +20,9 @@ class OrderSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         product_data = validated_data.pop('products_id')
-        user_data = validated_data.pop('user')
+        user = validated_data.pop('user')
 
-        order = Order.objects.create(user=user_data)
+        order = Order.objects.create(user=user)
         for product in product_data:
             order.product.add(product)
 
