@@ -7,7 +7,7 @@ from product.models import Product
 from product.Serializers.product_serializer import ProductSerializer
 
 class ProductViewSet(ModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication   ]
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = ProductSerializer
 

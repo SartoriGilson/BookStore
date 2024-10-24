@@ -16,9 +16,12 @@ class TestOrderViewSet(APITestCase):
     client = APIClient()
 
     def setUp(self):
+        self.user = UserFactory()
         self.category = CategoryFactory(title='technology')
         self.product = Productfactory(title='mouse', price=100.00, category=[self.category])
         self.order = OrderFactory(product=[self.product])
+        token = Token.objects.create(user=self.user)
+        token.save()
 
     def test_order(self):
         token = Token.objects.get(user__username=self.user.username)
