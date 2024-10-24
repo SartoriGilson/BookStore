@@ -8,7 +8,7 @@ from order.models import Order
 from order.Serializers import OrderSerializer
 
 class OrderViewSet(ModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication   ]
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = OrderSerializer
     queryset = Order.objects.all().order_by('id')
