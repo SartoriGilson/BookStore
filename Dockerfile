@@ -39,7 +39,7 @@ RUN apt-get update \
         # deps for building python deps
         build-essential
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-RUN curl -sSL https://raw.guithubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+RUN curl -sSL https://install.python-poetry.org | python3
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
