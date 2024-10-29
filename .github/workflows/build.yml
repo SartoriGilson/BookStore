@@ -29,7 +29,13 @@ jobs:
 
     - name: Install dependencies
       shell: bash
-      run: python -m poetry install
+      run: poetry install
+
+    - name: Set environment variables
+      run: |
+        echo "SECRET_KEY='django-insecure-#-69-2dm()%r3_tzi(h%7_#dezbpz0o3jn6ta8d__amg@n)n2p'" >> $GITHUB_ENV
+        echo "DEBUG='1'" >> $GITHUB_ENV
+        echo "DJANGO_ALLOWED_HOSTS='localhost 127.0.0.1'" >> $GITHUB_ENV
 
     - name: Test
       run: |
