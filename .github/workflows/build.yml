@@ -15,21 +15,21 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4  
+      uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install Poetry
+    - name: Install poetry
       run: |
-        curl -sSL https://install.python-poetry.org | python3 
-        echo "$HOME/.local/bin" >> $GITHUB_PATH  
-
+        python -m ensurepip
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade poetry
     - name: View poetry --help
       run: poetry --help
 
     - name: Install dependencies
-      run: |
-        poetry install 
+      shell: bash
+      run: python -m poetry install
 
     - name: Test
       run: |
