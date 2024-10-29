@@ -33,4 +33,4 @@ jobs:
 
     - name: Test
       run: |
-        docker-compose exec web python manage.py test
+        poetry run python manage.py test
