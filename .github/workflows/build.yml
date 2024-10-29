@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.12]
+        python-version: [3.12.5]
 
     runs-on: ubuntu-latest
 
@@ -15,21 +15,21 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4  
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install poetry
+    - name: Install Poetry
       run: |
-        python -m ensurepip
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade poetry
+        curl -sSL https://install.python-poetry.org | python3 
+        echo "$HOME/.local/bin" >> $GITHUB_PATH  
+
     - name: View poetry --help
       run: poetry --help
 
     - name: Install dependencies
-      shell: bash
-      run: python -m poetry install
+      run: |
+        poetry install 
 
     - name: Test
       run: |
