@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,6 +77,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'BookStore.wsgi.application'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_ROOT = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Database
@@ -154,4 +159,5 @@ DEBUG = os.environ.get("DEBUG") == '1'
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space betwen each.
 # For example : 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS','').split(" ")
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://bookstore-v1-4024d83e233f.herokuapp.com']
