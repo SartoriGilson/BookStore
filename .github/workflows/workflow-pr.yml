@@ -1,0 +1,44 @@
+name: Python Pull Request Workflow
+on: [pull_request]
+jobs:
+
+  qa:
+    name: Quality check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12.5
+      - name: Install poetry
+        run: |
+          pip install -U pip
+          pip install poetry
+          poetry install
+        env:
+          POETRY_VIRTUALENVS_CREATE: false
+
+      - name: View poetry --help
+        run: poetry --help
+
+      - name: Install dependencies
+        shell: bash
+        run: python -m poetry install
+
+      - name: Set environment variables
+        run: |
+          echo "SECRET_KEY='django-insecure-#-69-2dm()%r3_tzi(h%7_#dezbpz0o3jn6ta8d__amg@n)n2p'" >> $GITHUB_ENV
+          echo "DEBUG='1'" >> $GITHUB_ENV
+          echo "DJANGO_ALLOWED_HOSTS='localhost 127.0.0.1'" >> $GITHUB_ENV
+
+      - name: Test
+        run: |
+          poetry run python manage.py test
+      - name: Wemake python Stylguide
+        uses: wemake-services/wemake-python-styleguide@0.16.0
+        continue-on-error: true
+        with:
+          reporter: 'github-pr-review'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
